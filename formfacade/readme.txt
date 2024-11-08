@@ -3,7 +3,7 @@ Contributors: manidoraisamy
 Tags: Google Forms, Form Builder, Lead Form, Contact Form, Payment Form.
 Requires at least: 4.0
 Tested up to: 6.6.1
-Stable tag: 1.3.6
+Stable tag: 1.3.7
 License: GPLv2 or later
 
 **Embed Google Forms in your wordpress site**
@@ -22,8 +22,7 @@ Step 2: Install and Activate the Formfacade WordPress plugin for Google Forms
 Step 3: Follow the prompts in the setup wizard to embed the google form
 
 For detailed instructions, refer to this help article.
-[(https://formfacade.com/embed/embed-google-forms-in-wordpress.html)](https://formfacade.com/embed/embed-google-forms-in-wordpress.html)
-
+[https://formfacade.com/embed/embed-google-forms-in-wordpress.html](https://formfacade.com/embed/embed-google-forms-in-wordpress.html)
 
 == Features ==
 
