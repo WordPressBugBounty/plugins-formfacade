@@ -6,7 +6,7 @@
 * Plugin Name: FormFacade
 * Plugin URI: https://formfacade.com/website/how-to-embed-google-forms-in-wordpress.html
 * Description: Customize your Google Form to suit your wordpress site
-* Version: 1.3.7
+* Version: 1.3.8
 * Author: FormFacade
 * Author URI: https://formfacade.com
 * License: GPL v2 or Later
@@ -80,10 +80,10 @@ function formfacade_plugin_menu() {
 }
 
 function formfacade_home_page() {
-    wp_enqueue_style('neartail_styles_bootstrap', plugins_url('assets/css/bootstrap.min.css', __FILE__), [], '1.0.0');
-    wp_enqueue_style('neartail_styles_custom', plugins_url('assets/css/style.css', __FILE__), [], '1.0.0');
+    wp_enqueue_style('formfacade_styles_bootstrap', plugins_url('assets/css/bootstrap.min.css', __FILE__), [], '1.0.0');
+    wp_enqueue_style('formfacade_styles_custom', plugins_url('assets/css/style.css', __FILE__), [], '1.0.0');
 
-    wp_enqueue_script('neartail_home_script', plugins_url('assets/js/home.js', __FILE__), [], '1.0.0', true);
+    wp_enqueue_script('formfacade_home_script', plugins_url('assets/js/home.js', __FILE__), [], '1.0.0', true);
     wp_enqueue_script('lottie_script', plugins_url('assets/js/lottie.js', __FILE__), [], '5.7.13', true);
     include(plugin_dir_path(__FILE__) . 'templates/home.php');
 }
@@ -182,7 +182,7 @@ function embed_google_forms_page() {
         $preview_url = get_permalink($page_id) . '?preview=true';
         emebd_wordpress_script($page_id, $user_id, $publish_id);
     } else if($page_name){
-        $page_id = neartail_new_page($page_name, $user_id, $publish_id);
+        $page_id = formfacade_new_page($page_name, $user_id, $publish_id);
         $url = $url . "?pageId=" . esc_attr($page_id) . "&userId=" . esc_attr($user_id) . "&publishId=" . esc_attr($publish_id);
         $preview_url = get_permalink($page_id) . '?preview=true';
     }
@@ -285,7 +285,7 @@ function formfacade_new_page($pageName, $userId, $publishId) {
         'post_type' => 'page'
     );
 
-    $embedUrl = 'https://neartail.com/include/' . $userId . '/form/' . $publishId . '/wordpress.js?div=ff-compose';
+    $embedUrl = 'https://formfacade.com/include/' . $userId . '/form/' . $publishId . '/wordpress.js?div=ff-compose';
     $pageId = wp_insert_post($page);
 
     if ($pageId) {
@@ -341,7 +341,7 @@ class FormFacade
             $script_tag = wp_get_inline_script_tag('', ['src' => $embedUrl, 'async' => true, 'defer' => true]);
             return '<div id="ff-' . esc_url($id) . '"></div>' . $script_tag;
 		} else {
-			return '<div>Invalid form id.<br/>- For example, if the public url of your Google Form is:  https://docs.google.com/forms/d/e/<span style="background:yellow;color:red;">1FAIpQLSdN-M-uIQN8FfjAZul_BQi0MKYARV_vqNKFejV0QFomAjtdGg</span>/viewform<br/>- Your public id issssssssssss:  1FAIpQLSdN-M-uIQN8FfjAZul_BQi0MKYARV_vqNKFejV0QFomAjtdGg<br/>- So, the short code that you need to add to your page will be: <br/>[neartail id=1FAIpQLSdN-M-uIQN8FfjAZul_BQi0MKYARV_vqNKFejV0QFomAjtdGg]<br/><br/><i>For Support Contact: <b>support@neartail.com</b></i></div>';
+			return '<div>Invalid form id.<br/>- For example, if the public url of your Google Form is:  https://docs.google.com/forms/d/e/<span style="background:yellow;color:red;">1FAIpQLSdN-M-uIQN8FfjAZul_BQi0MKYARV_vqNKFejV0QFomAjtdGg</span>/viewform<br/>- Your public id issssssssssss:  1FAIpQLSdN-M-uIQN8FfjAZul_BQi0MKYARV_vqNKFejV0QFomAjtdGg<br/>- So, the short code that you need to add to your page will be: <br/>[formfacade id=1FAIpQLSdN-M-uIQN8FfjAZul_BQi0MKYARV_vqNKFejV0QFomAjtdGg]<br/><br/><i>For Support Contact: <b>support@formfacade.com</b></i></div>';
 		}
 	}
 }
