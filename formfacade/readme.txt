@@ -3,7 +3,7 @@ Contributors: manidoraisamy
 Tags: Google Forms, Form Builder, Lead Form, Contact Form, Payment Form.
 Requires at least: 4.0
 Tested up to: 6.6.1
-Stable tag: 1.3.8
+Stable tag: 1.3.9
 License: GPLv2 or later
 
 **Embed Google Forms in your wordpress site**
