@@ -1,9 +1,9 @@
-=== FormFacade - Embed Google Forms ===
+=== FormFacade - Embed Google Forms in your website ===
 Contributors: manidoraisamy
 Tags: Google Forms, Form Builder, Lead Form, Contact Form, Payment Form.
 Requires at least: 4.0
 Tested up to: 6.6.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 
 **Embed Google Forms™ in your wordpress site**
@@ -33,7 +33,7 @@ Convert your Google Forms™ into a tailor-made form that fits neatly in your we
 Google Forms™ prefill feature does not work with embedded form. With Formfacade, you can append the prefill url from Google Forms™ to the url of the webpage that embeds the Formfacade form. Formfacade will automatically read your webpage url and prefill the form appropriately. 
 
 = Analyze where users are dropping off using session recording tools =
-Google forms™ embedded in your website can't be analyzed using session recording tools. This is critical for forms with multiple sections. Formfacade allows you to analyze user behaviour and see where they are dropping off using session recording tools like FullStory or Hotjar.
+Google Forms™ embedded in your website can't be analyzed using session recording tools. This is critical for forms with multiple sections. Formfacade allows you to analyze user behaviour and see where they are dropping off using session recording tools like FullStory or Hotjar.
 
 = Customize UI =
 With customize UI paid plans, you can also customize the form layout, apply custom styles, change form field permissions (editable, hidden, readonly), update the placeholder text, format the question, description, add dynamic response validations, add calculations, enter a caption to update the button text, personalize the confirmation message and redirect users to another webpage on submit.
