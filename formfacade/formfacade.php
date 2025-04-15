@@ -6,7 +6,7 @@
 * Plugin Name: FormFacade
 * Plugin URI: https://formfacade.com/website/how-to-embed-google-forms-in-wordpress.html
 * Description: Customize your Google Form to suit your wordpress site
-* Version: 1.3.9
+* Version: 1.4.0
 * Author: FormFacade
 * Author URI: https://formfacade.com
 * License: GPL v2 or Later
