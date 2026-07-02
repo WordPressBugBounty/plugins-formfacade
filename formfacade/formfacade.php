@@ -6,7 +6,7 @@
 * Plugin Name: FormFacade
 * Plugin URI: https://formfacade.com/website/how-to-embed-google-forms-in-wordpress.html
 * Description: Customize your Google Form to suit your wordpress site
-* Version: 1.4.1
+* Version: 2.0
 * Author: FormFacade
 * Author URI: https://formfacade.com
 * License: GPL v2 or Later
@@ -33,6 +33,35 @@ Copyright 2019 Mailrecipe LLC.
 
 defined('ABSPATH') or die('Sorry! This request is not called properly');
 function_exists('add_action') or die('Sorry! This request is called outside wordpress');
+
+
+// Cache-bust the plugin's own CSS/JS by file modification time so browsers
+// always pick up edits instead of serving a stale cached copy.
+function formfacade_asset_ver($relative_path) {
+    $full = plugin_dir_path(__FILE__) . ltrim($relative_path, '/');
+    return file_exists($full) ? filemtime($full) : '1.4.1';
+}
+
+// Shared CSS that makes an embedded iframe fill the admin canvas with no scrollbars.
+function formfacade_fullscreen_iframe_css() {
+    ?>
+    <style>
+        #wpcontent { padding-left: 0; }
+        #wpbody-content { padding-bottom: 0; }
+        #wpfooter { display: none; }
+        .wrap.ff-fullscreen {
+            margin: 0;
+            height: calc(100vh - var(--wp-admin--admin-bar--height, 32px));
+        }
+        .wrap.ff-fullscreen iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+    <?php
+}
 
 
 // Add menu items
@@ -80,10 +109,11 @@ function formfacade_plugin_menu() {
 }
 
 function formfacade_home_page() {
+    wp_enqueue_style('formfacade_fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Onest:wght@400;500;600;700&display=swap', [], null);
     wp_enqueue_style('formfacade_styles_bootstrap', plugins_url('assets/css/bootstrap.min.css', __FILE__), [], '1.0.0');
-    wp_enqueue_style('formfacade_styles_custom', plugins_url('assets/css/style.css', __FILE__), [], '1.0.0');
+    wp_enqueue_style('formfacade_styles_custom', plugins_url('assets/css/style.css', __FILE__), [], formfacade_asset_ver('assets/css/style.css'));
 
-    wp_enqueue_script('formfacade_home_script', plugins_url('assets/js/home.js', __FILE__), [], '1.0.0', true);
+    wp_enqueue_script('formfacade_home_script', plugins_url('assets/js/home.js', __FILE__), [], formfacade_asset_ver('assets/js/home.js'), true);
     wp_enqueue_script('lottie_script', plugins_url('assets/js/lottie.js', __FILE__), [], '5.7.13', true);
     include(plugin_dir_path(__FILE__) . 'templates/home.php');
 }
@@ -110,10 +140,11 @@ function formfacade_dashboard_page() {
         }
     }
 
+    formfacade_fullscreen_iframe_css();
     ?>
-        <div class="wrap" style="height: 100vh;">
-            <iframe id="myIframe" src="<?php echo esc_url($url); ?>" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-        </div>
+    <div class="wrap ff-fullscreen">
+        <iframe id="myIframe" src="<?php echo esc_url($url); ?>" title="Formfacade Dashboard">Loading…</iframe>
+    </div>
     <?php
 }
 
@@ -188,9 +219,10 @@ function embed_google_forms_page() {
     }
 
 
+    formfacade_fullscreen_iframe_css();
     ?>
-    <div class="wrap" style="height: 100vh;">
-        <iframe id="myIframe" src="<?php echo esc_url($url); ?>" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    <div class="wrap ff-fullscreen">
+        <iframe id="myIframe" src="<?php echo esc_url($url); ?>" title="Formfacade">Loading…</iframe>
     </div>
     <?php
 
@@ -228,6 +260,7 @@ function embed_google_forms_page() {
                 if (event.origin !== '" . esc_url($domain) . "') return; // Verify the origin
                 var formData = event.data; // This will contain the form data sent from the iframe
                 var admin_url = '" . esc_url($admin_url) . "';
+                if (typeof formData !== 'string') return; // only handle string (JSON) messages from the iframe
                 if (formData && formData.indexOf('pageId') > -1) {
                     var data = JSON.parse(formData);
                     var url = window.location.href;
@@ -299,7 +332,8 @@ function formfacade_new_page($pageName, $userId, $publishId) {
 
         $block_content .= '<!-- /Custom HTML block -->';
         $block_content .= '<!-- /wp:html -->';
-        $updated_content = $existing_content . "\n\n" . $block_content;
+        // New page starts empty, so the embed block is the entire content.
+        $updated_content = $block_content;
         wp_update_post([ 'ID' => $pageId, 'post_content' => $updated_content, ]);
     }
 

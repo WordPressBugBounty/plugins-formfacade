@@ -2,8 +2,9 @@
 Contributors: manidoraisamy
 Tags: Google Forms, Form Builder, Lead Form, Contact Form, Payment Form.
 Requires at least: 4.0
-Tested up to: 6.6.1
-Stable tag: 1.4.1
+Tested up to: 7.0
+Requires PHP: 7.0
+Stable tag: 2.0
 License: GPLv2 or later
 
 **Embed Google Forms™ in your wordpress site**
@@ -55,3 +56,12 @@ This plugin uses our external web service [(Formfacade)](https://formfacade.com/
 - Submit the form details using AJAX without redirecting the user to a Google Forms™ page.
 
 FormFacade collects personal and non-personally identifiable information solely for the purpose of providing our services to you (i.e. to submit the form). You can read our privacy policy here: [https://formfacade.com/privacy.html](https://formfacade.com/privacy.html)
+
+
+== Changelog ==
+
+= 2.0 =
+* Tested with WordPress 7.0.
+* Dashboard and Embed Google Forms pages: the embedded window now fills the screen without an extra scrollbar.
+* About page: fixed the Connect button size and styling, and made the page font load reliably.
+* Minor fixes and cleanup in the embedding flow.

@@ -1,7 +1,7 @@
 .animation-content { display:flex; justify-content: center;}
 .logo { width: 50px; }
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Onest', 'Inter', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -36,17 +36,21 @@ body {
     margin-bottom: 40px;
 }
 .content .button {
-    padding: 8px 30px;
-    font-size: 1em;
+    display: inline-block;
+    padding: 12px 32px;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 600;
+    text-decoration: none;
     background-color: #5D33FB;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 18px;
+    transition: background-color 0.15s ease;
 }
-.content button:hover {
-    background-color: #0056b3;
+.content .button:hover {
+    background-color: #4726c9;
 }
 .images {
     display: flex;
@@ -62,4 +66,14 @@ body {
     margin-top: 40px;
     font-size: 1em;
     color: #666;
+}
+
+/* Onest (with Inter fallback) for the plugin's About page UI.
+   Explicit selectors so Bootstrap's font-family does not win by specificity. */
+.navbar-brand,
+.content,
+.content h1,
+.content p,
+.content .button {
+    font-family: 'Onest', 'Inter', sans-serif;
 }
